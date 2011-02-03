@@ -1,0 +1,58 @@
+== SSO with Devise and Omniauth Client
+
+This is the client that uses ONLY omniauth to connect to a custom provider
+for single sign on between multiple applications.
+
+== Usage
+
+    git clone git://github.com/joshsoftware/sso-devise-omniauth-client.git
+    bundle install
+    rake db:create
+    rake db:migrate
+
+== Configure the Client
+
+On the *Provider*, register this client application:
+    rails c
+    > Client.create!(:app_id => 'some key', :app_secret => 'some secret')
+
+Copy these same values in the *Client* config/initializers/omniauth.rb
+
+    APP_ID = 'some key' 
+    APP_SECRET = 'some secret'
+    
+    # Update your custom Omniauth provider URL here
+    CUSTOM_PROVIDER_URL = 'http://localhost:3000'
+        
+    Rails.application.config.middleware.use OmniAuth::Builder do
+      provider :josh_id, APP_ID, APP_SECRET
+    end 
+
+== The custom Omniauth strategy
+
+Since we want a single sign-on between our server and our client apps, we need to write 
+a custom omniauth strategy. This is written in lib/josh_id.rb. Please implement your own
+and / or modify as required.
+
+== To test single sign-on
+
+    git clone git://github.com/joshsoftware/sso-devise-omniauth-client.git client1
+    git clone git://github.com/joshsoftware/sso-devise-omniauth-client.git client2
+
+
+    # configure the client1 key and secret in the provider as mentioned above
+
+    # In separater terminals start 2 clients
+    client1 $ rails s -p3001 
+    client2 $ rails s -p3002
+
+Now, if you login via 1 client, and change the URL to the other, you will be automatically
+signed-in! 
+
+== Contributions
+
+Please feel free to enhance this demo.
+For any doubts, please send an email to gautam@joshsoftware.com
+
+I am eager to write some rspec for this setup. If you do, please send me a pull request!
+

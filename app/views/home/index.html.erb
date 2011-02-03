@@ -1,0 +1,10 @@
+<% if flash[:notice] %>
+  <p><%=flash[:notice] %> </p>
+  <% flash[:notice] = nil %>
+<% end %>
+<% if not @current_user %>
+ <%= link_to 'login', '/auth/josh_id' %>
+<% else %> 
+  <h1>Hello <%= "#{@current_user.first_name} #{@current_user.last_name}" %> !</h1>
+ <%= link_to 'logout', '/logout' %>
+<% end %>

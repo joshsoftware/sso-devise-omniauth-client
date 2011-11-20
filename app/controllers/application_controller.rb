@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
     if !current_user
       respond_to do |format|
         format.html  { 
-          redirect_to '/auth/josh_id'
+          redirect_to '/auth/joshid'
         }
         format.json {
           render :json => { 'error' => 'Access Denied' }.to_json

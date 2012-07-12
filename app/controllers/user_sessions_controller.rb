@@ -3,7 +3,7 @@ class UserSessionsController < ApplicationController
 
   respond_to :html
 
-  # omniauth callback method 
+  # omniauth callback method
   def create
     omniauth = env['omniauth.auth']
     logger.debug "+++ #{omniauth}"
@@ -11,9 +11,9 @@ class UserSessionsController < ApplicationController
     user = User.find_by_uid(omniauth['uid'])
     if not user
       # New user registration
-    user = User.create!(:uid => omniauth['uid'], 
-                          :first_name => omniauth['extra']['first_name'],
-                          :last_name => omniauth['extra']['last_name'])
+    user = User.create!(:uid        => omniauth['uid'],
+                        :first_name => omniauth['extra']['first_name'],
+                        :last_name  => omniauth['extra']['last_name'])
     end
 
     # Currently storing all the info

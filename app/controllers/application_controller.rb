@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   def login_required
     if !current_user
       respond_to do |format|
-        format.html  { 
+        format.html  {
           redirect_to '/auth/joshid'
         }
         format.json {
@@ -18,4 +18,5 @@ class ApplicationController < ActionController::Base
     return nil unless session[:user_id]
     @current_user ||= User.find_by_uid(session[:user_id]['uid'])
   end
+
 end

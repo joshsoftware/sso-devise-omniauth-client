@@ -14,7 +14,10 @@ for single sign on between multiple applications.
 
 On the *Provider*, register this client application:
     rails c
-    > Client.create!(:app_id => 'some key', :app_secret => 'some secret')
+    > @client = Client.new
+    > @client.app_id = 'some key'
+    > @client.app_secret = 'some secret'
+    > @client.save
 
 Copy these same values in the *Client* config/initializers/omniauth.rb
 

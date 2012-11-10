@@ -3,13 +3,19 @@ module OmniAuth
   module Strategies
     class JoshId < OmniAuth::Strategies::OAuth2
 
-      CUSTOM_PROVIDER_URL = 'http://localhost:3000'
+      CUSTOM_PROVIDER_URL = File.symlink?(ENV['HOME']+'/.pow/provider') ? 'http://provider.dev' : 'http://localhost:3000'
+
+      SIGN_OUT_URL = "#{CUSTOM_PROVIDER_URL}/users/sign_out"
+
+      option :name, "josh_id"
 
       option :client_options, {
         :site =>  CUSTOM_PROVIDER_URL,
         :authorize_url => "#{CUSTOM_PROVIDER_URL}/auth/josh_id/authorize",
         :access_token_url => "#{CUSTOM_PROVIDER_URL}/auth/josh_id/access_token"
       }
+      
+      option :provider_ignores_state, true
 
       uid { raw_info['id'] }
 

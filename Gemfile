@@ -11,5 +11,6 @@ end
 
 gem 'jquery-rails'
 
+gem 'devise'
 gem 'omniauth'
 gem 'omniauth-oauth2'

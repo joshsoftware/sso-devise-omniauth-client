@@ -4,7 +4,9 @@ module OmniAuth
     class JoshId < OmniAuth::Strategies::OAuth2
 
       CUSTOM_PROVIDER_URL = File.symlink?(ENV['HOME']+'/.pow/provider') ? 'http://provider.dev' : 'http://localhost:3000'
-      
+
+      SIGN_OUT_URL = "#{CUSTOM_PROVIDER_URL}/users/sign_out"
+
       option :name, "josh_id"
 
       option :client_options, {
